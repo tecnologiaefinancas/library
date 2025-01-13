@@ -1,7 +1,7 @@
 package com.tecnologiaefinancas.library.controller;
 
 
-import com.tecnologiaefinancas.library.model.Book;
+import com.tecnologiaefinancas.library.entity.Book;
 import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.*;
 
