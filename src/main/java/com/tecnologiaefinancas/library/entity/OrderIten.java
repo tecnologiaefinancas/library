@@ -16,6 +16,12 @@ public class OrderIten {
     public OrderIten() {
     }
 
+    public OrderIten(String book, Integer quantity, BigDecimal price) {
+        this.book = book;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public String getBook() {
         return book;
     }
