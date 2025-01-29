@@ -1,34 +1,32 @@
 package com.tecnologiaefinancas.library.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 
-@Entity
+
+@Document (collection = "books")
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long bookId;
     private String title;
     private String author;
 
     public Book() {
     }
 
-    public Book(Long id, String title, String author) {
-        this.id = id;
+    public Book(Long bookId, String title, String author) {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
     }
 
-    public Long getId() {
-        return id;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
