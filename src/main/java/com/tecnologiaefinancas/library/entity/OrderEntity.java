@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Document(collection = "tb_orders")
-public class Order {
+public class OrderEntity {
 
     @Id
     private String orderId;
@@ -23,7 +23,7 @@ public class Order {
 
     private List<OrderIten> itens;
 
-    public Order() {
+    public OrderEntity() {
     }
 
     public String getOrderId() {

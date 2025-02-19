@@ -2,8 +2,9 @@ package com.tecnologiaefinancas.library.controller;
 
 import com.tecnologiaefinancas.library.controller.dto.ApiResponse;
 import com.tecnologiaefinancas.library.controller.dto.OrderResponse;
-import com.tecnologiaefinancas.library.entity.Order;
+import com.tecnologiaefinancas.library.controller.dto.PaginationResponse;
 import com.tecnologiaefinancas.library.service.OrderService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,13 @@ public class OrderController {
                                                                  @RequestParam(name = "page", defaultValue = "0") Integer page,
                                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
 
-        return ResponseEntity.ok(null);
+        var pageResponse = orderService.findAllByCustomerId(customerId, PageRequest.of(page, pageSize));
+
+        return ResponseEntity.ok(new ApiResponse<>(
+                pageResponse.getContent(),
+                PaginationResponse.fromPage(pageResponse)
+
+        ));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.tecnologiaefinancas.library.service;
 
 import com.tecnologiaefinancas.library.controller.dto.OrderResponse;
-import com.tecnologiaefinancas.library.entity.Order;
+import com.tecnologiaefinancas.library.entity.OrderEntity;
 import com.tecnologiaefinancas.library.entity.OrderIten;
 import com.tecnologiaefinancas.library.listener.dto.OrderCreatedEvent;
 import com.tecnologiaefinancas.library.repository.OrderRepository;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class OrderService {
@@ -25,7 +23,7 @@ public class OrderService {
 
     public void save(OrderCreatedEvent event){
 
-        var entity = new Order();
+        var entity = new OrderEntity();
 
         entity.setOrderId(String.valueOf(event.orderCode()));
         entity.setCustomerId(event.customerCode());
@@ -36,7 +34,9 @@ public class OrderService {
     }
 
     public Page<OrderResponse> findAllByCustomerId(Long customerId, PageRequest pageRequest){
-        return orderRepository.findAllByCustomerId(customerId, pageRequest);
+        var orders = orderRepository.findAllByCustomerId(customerId, pageRequest);
+
+        return orders.map(OrderResponse::fromEntity);
     }
 
     private BigDecimal getTotal(OrderCreatedEvent event){
