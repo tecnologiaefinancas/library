@@ -1,13 +1,16 @@
 package com.tecnologiaefinancas.library.controller;
 
 
+
 import com.tecnologiaefinancas.library.entity.Book;
 import com.tecnologiaefinancas.library.repository.BookRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
+
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -17,7 +20,6 @@ public class BookController {
     @Autowired
     BookRepository bookRepository;
 
-    private List<Book> books = new ArrayList<>();
 
     @GetMapping
     public Iterable<Book> getAllBooks() {
@@ -26,11 +28,24 @@ public class BookController {
 
     @PostMapping
     public Book createBook(@RequestBody Book book) {
-        books.add(book);
-        return book;
+        return bookRepository.save(book);
     }
 
+
     @PostConstruct
-    public void init() { books.add(new Book(1L, "The Great Gatsby", "F. Scott Fitzgerald")); books.add(new Book(2L, "1984", "George Orwell")); books.add(new Book(3L, "To Kill a Mockingbird", "Harper Lee")); }
+    public void init() {
+        List<Book> books = Arrays.asList(
+                new Book("The Great Gatsby", "F. Scott Fitzgerald"),
+                new Book("1984", "George Orwell"),
+                new Book("To Kill a Mockingbird", "Harper Lee"),
+                new Book("Moby-Dick", "Herman Melville"),
+                new Book("Pride and Prejudice", "Jane Austen"),
+                new Book("War and Peace", "Leo Tolstoy"),
+                new Book("The Catcher in the Rye", "J.D. Salinger"),
+                new Book("The Hobbit", "J.R.R. Tolkien")
+        );
+        bookRepository.saveAll(books);
+    }
+
 }
 
