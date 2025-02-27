@@ -2,7 +2,9 @@ package com.tecnologiaefinancas.library.controller;
 
 
 import com.tecnologiaefinancas.library.entity.Book;
+import com.tecnologiaefinancas.library.repository.BookRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,11 +14,14 @@ import java.util.List;
 @RequestMapping("/api/books")
 public class BookController {
 
+    @Autowired
+    BookRepository bookRepository;
+
     private List<Book> books = new ArrayList<>();
 
     @GetMapping
-    public List<Book> getAllBooks() {
-        return books;
+    public Iterable<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 
     @PostMapping

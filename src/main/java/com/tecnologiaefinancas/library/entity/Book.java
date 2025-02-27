@@ -1,15 +1,21 @@
 package com.tecnologiaefinancas.library.entity;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 
-@Document (collection = "books")
+@Entity
 public class Book {
 
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long bookId;
+
     private String title;
+
     private String author;
 
     public Book() {
