@@ -7,6 +7,9 @@ import com.tecnologiaefinancas.library.excepction.ResourceNotFoundException;
 import com.tecnologiaefinancas.library.repository.BookRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +28,14 @@ public class BookController {
 
 
     @GetMapping
-    public Iterable<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public ResponseEntity<Page<Book>> getAllBooks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Book> booksPage = bookRepository.findAll(pageable);
+        return ResponseEntity.ok(booksPage);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
