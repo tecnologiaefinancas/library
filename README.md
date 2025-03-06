@@ -8,6 +8,8 @@ This project is a Java-based API developed for library management.
 
 The API is consumed by a React project to provide frontend functionalities.
 
+The `main` branch is a simplified version of the project. For more comprehensive code, please check the `rabbit_mq` and `with_mongodb` branches.
+
 
 **Technologies Used**
 
